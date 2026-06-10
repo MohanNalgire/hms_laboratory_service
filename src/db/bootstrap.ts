@@ -1,4 +1,5 @@
-import { resolveMigrationsDir, runMigrations } from '@hms/platform';
+import { ensureOutboxTable, resolveMigrationsDir, runMigrations } from '@hms/platform';
+
 import { connectPostgres, getPool } from './postgres.js';
 
 export async function bootstrapDatabase(importMetaUrl: URL | string): Promise<void> {
@@ -6,4 +7,5 @@ export async function bootstrapDatabase(importMetaUrl: URL | string): Promise<vo
   const pool = getPool();
   const url = typeof importMetaUrl === 'string' ? importMetaUrl : importMetaUrl.href;
   await runMigrations(pool, resolveMigrationsDir(url));
+  await ensureOutboxTable(pool);
 }

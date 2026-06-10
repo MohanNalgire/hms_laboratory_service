@@ -1,4 +1,5 @@
 import { createPostgresClient } from '@hms/platform';
+
 import { DATABASE_NAME } from '../config.js';
 
 const client = createPostgresClient(DATABASE_NAME);
